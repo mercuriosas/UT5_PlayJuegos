@@ -71,7 +71,12 @@ fun MenuNewPlayer() {
         bottomBar = { },
 
         // Botón flotante personalizado
-        floatingActionButton = { MyExtendedFAB()},
+        floatingActionButton = { ExtendedFloatingActionButton(
+            onClick = { nameError = EstadoNombre.isBlank() },
+            icon = { Icon(Icons.Filled.AccountCircle, "Add new player") },
+            text = { Text(text = "Add new player") },
+            containerColor = tealA100
+        )},
         floatingActionButtonPosition = FabPosition.Center,
 
         //Snackbar
@@ -158,25 +163,7 @@ fun MenuNewPlayer() {
                         Spacer(
                             modifier = Modifier
                                 .weight(pesoV)
-                            //.size(80.dp)
                         )
-                        /*
-                        TextField(
-                            value = EstadoNick,
-                            onValueChange = { EstadoNick = it },
-                            Modifier
-                                .weight(pesoH),
-                            colors = TextFieldDefaults.textFieldColors(
-                                containerColor = AzulTransp,
-                                focusedIndicatorColor = NaranjaLight
-                            ),
-                            //.width(280.dp),
-                            label = {
-                                Text("Nick")
-                            },
-                            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-                        )*/
-                        //Spacer(modifier = Modifier.size(110.dp))
                         MyDropDownMenu(pesoH)
                     }
                     Spacer(Modifier.size(20.dp))
@@ -259,15 +246,6 @@ fun MenuNewPlayer() {
                         )
                     }
                 }
-               /* Row() {
-                    Button(
-                        onClick = { nameError = EstadoNombre.isBlank() },
-                        shape = RoundedCornerShape(15.dp)
-                    ) {
-                        Text(text = "Add new player")
-                    }
-
-                }*/
             }
         }
     )
@@ -330,15 +308,5 @@ fun MyTopAppBarSmall(Texto:String) {
         colors = TopAppBarDefaults.smallTopAppBarColors(
             containerColor = tealA100
         )
-    )
-}
-
-@Composable
-fun MyExtendedFAB() {
-    ExtendedFloatingActionButton(
-        onClick = { /*TODO*/ },
-        icon = { Icon(Icons.Filled.AccountCircle, "Add new player") },
-        text = { Text(text = "Add new player") },
-       containerColor = tealA100
     )
 }
