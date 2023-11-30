@@ -65,40 +65,40 @@ fun Games() {
         )
     )
     Scaffold(
-        topBar = {},
+        topBar = { MyTopAppBarSmall("juegos") },
         bottomBar = {},
         snackbarHost = {},
         floatingActionButton = { MyFABCheck(myOptions) },
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .verticalScroll(rememberScrollState())
+            )//{, contentAlignment = Alignment.Center) {
 
-        ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it)
-                .verticalScroll(rememberScrollState())
-        )//{, contentAlignment = Alignment.Center) {
-
-        Column(
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start,
-            modifier = Modifier
-                .padding(horizontal = 15.dp)
-                .verticalScroll(rememberScrollState())
-        ) {
-            Spacer(modifier = Modifier.height(10.dp))
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(
-                text = "Selecciona los juegos:",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            )
-            //val myOptions = getOptions()
-            //MyCheckBox(myOptions[6])
-            myOptions.forEach {
-                MyCheckBox(it)
+            Column(
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start,
+                modifier = Modifier
+                    .padding(horizontal = 15.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = "Selecciona los juegos:",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                //val myOptions = getOptions()
+                //MyCheckBox(myOptions[6])
+                myOptions.forEach {
+                    MyCheckBox(it)
+                }
             }
         }
-    }
+    )
 }
 
 /*

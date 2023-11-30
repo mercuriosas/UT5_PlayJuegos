@@ -1,6 +1,8 @@
 package com.example.ut4_playjuegosv2
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +17,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
@@ -25,6 +31,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -84,166 +91,170 @@ fun MenuNewPlayer() {
 
         // Contenido principal
         content = { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .verticalScroll(rememberScrollState()),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.size(10.dp))
-                Column(modifier = Modifier.padding(20.dp)) {
-                    Row() {
-                        Image(
-                            painter = painterResource(R.drawable.account),
-                            contentDescription = "User",
-                            Modifier
-                                .size(60.dp)
-                                .weight(pesoV)
-                        )
-                        //Spacer(modifier = Modifier.size(20.dp))
-                        TextField(
-                            value = EstadoNombre,
-                            onValueChange = {
-                                EstadoNombre = it
-                                nameError = false
-                            },
-                            Modifier.weight(pesoH),
-                            colors = TextFieldDefaults.textFieldColors(
-                                containerColor = AzulTransp,
-                                focusedIndicatorColor = NaranjaLight
-                            ),
-                            isError = nameError,
-                            label = { Text(text = ("Nombre")) },
-                            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-                        )
-
-                    }
-                    Row {
-                        val assistiveElementText =
-                            if (nameError) "Error: Obligatorio" else "*Obligatorio" // 4
-                        val assistiveElementColor = if (nameError) { // 5
-                            MaterialTheme.colorScheme.error
-                        } else {
-                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-                        }
-                        Spacer(Modifier.weight(pesoV))
-                        Text(
-                            text = assistiveElementText,
-                            color = assistiveElementColor,
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.weight(pesoH)
-                        )
-                    }
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        //.padding(paddingValues)
+                        .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Spacer(modifier = Modifier.size(10.dp))
-                    Row() {
-                        Spacer(
-                            modifier = Modifier
-                                .weight(pesoV)
-                            //.size(80.dp)
-                        )
-                        TextField(
-                            value = EstadoApellido,
-                            onValueChange = { EstadoApellido = it },
-                            Modifier
-                                .weight(pesoH),
-                            colors = TextFieldDefaults.textFieldColors(
-                                containerColor = AzulTransp,
-                                focusedIndicatorColor = NaranjaLight
-                            ),
-                            //.width(280.dp),
-                            label = {
-                                Text("Apellidos")
-                            },
-                            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-                        )
-                    }
-                    Spacer(modifier = Modifier.size(20.dp))
-                    Row() {
-                        Spacer(
-                            modifier = Modifier
-                                .weight(pesoV)
-                        )
-                        MyDropDownMenu(pesoH)
-                    }
-                    Spacer(Modifier.size(20.dp))
-                    Row() {
-                        Spacer(
-                            modifier = Modifier
-                                .weight(1f)
-                        )
-                        Image(
-                            painter = painterResource(R.drawable.android),
-                            contentDescription = "Carga",
-                            Modifier
-                                .size(100.dp)
-                                .weight(1f)
-                            //.weight(pesoV)
-                        )
-                        Button(
-                            onClick = { },
-                            // colors = ButtonDefaults.buttonColors(background = NaranjaSec),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = NaranjaSec,
-                                contentColor = Color.Black
-                            ),
-                            modifier = Modifier
-                                .width(100.dp)
-                                .weight(1f)
-                        ) {
-                            Text(text = "Change")
+                    Column(modifier = Modifier.padding(20.dp)) {
+                        Row() {
+                            Image(
+                                painter = painterResource(R.drawable.account),
+                                contentDescription = "User",
+                                Modifier
+                                    .size(60.dp)
+                                    .weight(pesoV)
+                            )
+                            //Spacer(modifier = Modifier.size(20.dp))
+                            TextField(
+                                value = EstadoNombre,
+                                onValueChange = {
+                                    EstadoNombre = it
+                                    nameError = false
+                                },
+                                Modifier.weight(pesoH),
+                                colors = TextFieldDefaults.textFieldColors(
+                                    containerColor = AzulTransp,
+                                    focusedIndicatorColor = NaranjaLight
+                                ),
+                                isError = nameError,
+                                label = { Text(text = ("Nombre")) },
+                                shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+                            )
+
                         }
-                    }
-                    Spacer(Modifier.size(20.dp))
-                    Row() {
-                        Image(
-                            painter = painterResource(R.drawable.camera),
-                            contentDescription = "Cámara",
-                            Modifier
-                                .size(60.dp)
-                                .weight(pesoV)
-                        )
-                        // Spacer(modifier = Modifier.size(20.dp))
-                        TextField(
-                            value = EstadoTelf,
-                            onValueChange = { EstadoTelf = it },
-                            Modifier
-                                .weight(pesoH),
-                            colors = TextFieldDefaults.textFieldColors(
-                                containerColor = AzulTransp,
-                                focusedIndicatorColor = NaranjaLight
-                            ),
-                            //.width(280.dp),
-                            label = {
-                                Text("Teléfono")
-                            },
-                            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-                        )
-                    }
-                    Spacer(Modifier.size(20.dp))
-                    Row() {
-                        Image(
-                            painter = painterResource(R.drawable.email),
-                            contentDescription = "Cámara",
-                            Modifier
-                                .size(60.dp)
-                                .weight(pesoV)
-                        )
-                        TextField(
-                            value = EstadoMail,
-                            onValueChange = { EstadoMail = it },
-                            Modifier
-                                .weight(pesoH),
-                            colors = TextFieldDefaults.textFieldColors(
-                                containerColor = AzulTransp,
-                                focusedIndicatorColor = NaranjaLight
-                            ),
-                            //.width(280.dp),
-                            label = {
-                                Text("E-mail")
-                            },
-                            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-                        )
+                        Row {
+                            val assistiveElementText =
+                                if (nameError) "Error: Obligatorio" else "*Obligatorio" // 4
+                            val assistiveElementColor = if (nameError) { // 5
+                                MaterialTheme.colorScheme.error
+                            } else {
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                            }
+                            Spacer(Modifier.weight(pesoV))
+                            Text(
+                                text = assistiveElementText,
+                                color = assistiveElementColor,
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.weight(pesoH)
+                            )
+                        }
+                        Spacer(modifier = Modifier.size(10.dp))
+                        Row() {
+                            Spacer(
+                                modifier = Modifier
+                                    .weight(pesoV)
+                                //.size(80.dp)
+                            )
+                            TextField(
+                                value = EstadoApellido,
+                                onValueChange = { EstadoApellido = it },
+                                Modifier
+                                    .weight(pesoH),
+                                colors = TextFieldDefaults.textFieldColors(
+                                    containerColor = AzulTransp,
+                                    focusedIndicatorColor = NaranjaLight
+                                ),
+                                //.width(280.dp),
+                                label = {
+                                    Text("Apellidos")
+                                },
+                                shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.size(20.dp))
+                        Row() {
+                            Spacer(
+                                modifier = Modifier
+                                    .weight(pesoV)
+                            )
+                            MyDropDownMenu(pesoH)
+                        }
+                        Spacer(Modifier.size(20.dp))
+                        Row() {
+                            Spacer(
+                                modifier = Modifier
+                                    .weight(1f)
+                            )
+                            Image(
+                                painter = painterResource(R.drawable.android),
+                                contentDescription = "Carga",
+                                Modifier
+                                    .size(100.dp)
+                                    .weight(1f)
+                                //.weight(pesoV)
+                            )
+                            Button(
+                                onClick = { },
+                                // colors = ButtonDefaults.buttonColors(background = NaranjaSec),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = NaranjaSec,
+                                    contentColor = Color.Black
+                                ),
+                                modifier = Modifier
+                                    .width(100.dp)
+                                    .weight(1f)
+                            ) {
+                                Text(text = "Change")
+                            }
+                        }
+                        Spacer(Modifier.size(20.dp))
+                        Row() {
+                            Image(
+                                painter = painterResource(R.drawable.camera),
+                                contentDescription = "Cámara",
+                                Modifier
+                                    .size(60.dp)
+                                    .weight(pesoV)
+                            )
+                            // Spacer(modifier = Modifier.size(20.dp))
+                            TextField(
+                                value = EstadoTelf,
+                                onValueChange = { EstadoTelf = it },
+                                Modifier
+                                    .weight(pesoH),
+                                colors = TextFieldDefaults.textFieldColors(
+                                    containerColor = AzulTransp,
+                                    focusedIndicatorColor = NaranjaLight
+                                ),
+                                //.width(280.dp),
+                                label = {
+                                    Text("Teléfono")
+                                },
+                                shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+                            )
+                        }
+                        Spacer(Modifier.size(20.dp))
+                        Row() {
+                            Image(
+                                painter = painterResource(R.drawable.email),
+                                contentDescription = "Cámara",
+                                Modifier
+                                    .size(60.dp)
+                                    .weight(pesoV)
+                            )
+                            TextField(
+                                value = EstadoMail,
+                                onValueChange = { EstadoMail = it },
+                                Modifier
+                                    .weight(pesoH),
+                                colors = TextFieldDefaults.textFieldColors(
+                                    containerColor = AzulTransp,
+                                    focusedIndicatorColor = NaranjaLight
+                                ),
+                                //.width(280.dp),
+                                label = {
+                                    Text("E-mail")
+                                },
+                                shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+                            )
+                        }
                     }
                 }
             }
@@ -307,6 +318,28 @@ fun MyTopAppBarSmall(Texto:String) {
         title = {Text(text = Texto)},
         colors = TopAppBarDefaults.smallTopAppBarColors(
             containerColor = tealA100
-        )
+        ),
+        navigationIcon = {
+            IconButton(onClick = {
+                //MyDrawerState.open()
+                //Toast.makeText(contextForToast, "Nav Icon Click", Toast.LENGTH_SHORT).show()
+            }) {
+                Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+            }
+        },
+        actions = {
+            IconButton(onClick = {
+            }) {
+                Icon(imageVector = Icons.Default.Favorite, contentDescription = "Add Items")
+            }
+            IconButton(onClick = {
+            }) {
+                Icon(imageVector = Icons.Default.Search, contentDescription = "Add Items")
+            }
+            IconButton(onClick = {
+            }) {
+                Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Add Items")
+            }
+        },
     )
 }
