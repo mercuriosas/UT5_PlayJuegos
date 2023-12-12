@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,8 +33,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.ut5_playjuegos.ui.theme.NaranjaDark
 
 var puntuaJuego: String = ""
@@ -46,36 +50,42 @@ fun preferences() {
     var puntuacion by remember { mutableStateOf(50f) }
     var corutineScope = rememberCoroutineScope()
 
+    /*  Scaffold(
+          floatingActionButton = { MyFAB(estadoRadio) },
+          floatingActionButtonPosition = FabPosition.End
+      ) {
+          */
     Scaffold(
+        topBar = { MyTopAppBarSmall("Preferencias") },
+        bottomBar = {},
+        snackbarHost = {},
         floatingActionButton = { MyFAB(estadoRadio) },
-        floatingActionButtonPosition = FabPosition.End
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it)
-        )//{, contentAlignment = Alignment.Center) {
-        Column(
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start
-        ) {
-            Spacer(modifier = Modifier.height(10.dp))
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(
-                "Elige una opción:"
-            )
-            Spacer(modifier = Modifier.size(20.dp))
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Column(
-                    verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.Start
-                ) {
-                    //var estadoRadio by rememberSaveable { mutableStateOf("opción 1") }
-                    MyRadioButton(estadoRadio) { estadoRadio = it }
+        floatingActionButtonPosition = FabPosition.End,
+        content = { paddingValues ->
+            Column(
+                modifier = Modifier.padding(paddingValues),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    "Elige una opción:", Modifier.padding(start = 5.dp),
+                )
+                Spacer(modifier = Modifier.size(20.dp))
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Column(
+                        verticalArrangement = Arrangement.Top,
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        //var estadoRadio by rememberSaveable { mutableStateOf("opción 1") }
+                        MyRadioButton(estadoRadio) { estadoRadio = it }
+                    }
                 }
             }
         }
-    }
+    )
+
 }
 
 
@@ -89,7 +99,7 @@ fun MyRadioButton(name: String, onItemSelected: (String) -> Unit) {
         Row() {
             RadioButton(
                 selected = name == "Angry Birds",
-                onClick = {onItemSelected("Angry Birds") }
+                onClick = { onItemSelected("Angry Birds") }
             )
             Text(text = "Angry Birds", Modifier.padding(top = 12.dp))
         }
@@ -133,12 +143,13 @@ fun SimpleDiscreteSlider() {
             valueRange = range,
             steps = steps,
             onValueChange = { selection = it },
-            onValueChangeFinished = {completeValule=selection.toInt().toString()}
+            onValueChangeFinished = { completeValule = selection.toInt().toString() }
         )
-        puntuaJuego=completeValule
+        puntuaJuego = completeValule
     }
 
 }
+
 @Composable
 fun MyFAB(seleccion: String) {
     var context = LocalContext.current

@@ -81,7 +81,7 @@ fun Games() {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
-                    .padding(horizontal = 15.dp)
+                    .padding(paddingValues)//horizontal = 15.dp)
                     .verticalScroll(rememberScrollState())
             ) {
                 Spacer(modifier = Modifier.height(10.dp))
